@@ -1,0 +1,499 @@
+/*
+  David Villringer: academic website.
+  Plain HTML and CSS with no external resources; colours and type follow the CV.
+*/
+
+:root {
+  --bg: #ffffff;
+  --band: #f3f6f8;
+  --text: #1d2226;
+  --muted: #5b646b;
+  --accent: #294c63;
+  --accent-strong: #172f40;
+  --underline: rgba(41, 76, 99, 0.3);
+  --rule: #dfe6ea;
+  --rule-strong: #b7c3cb;
+  --nav-bg: rgba(243, 246, 248, 0.94);
+
+  --serif: Palatino, "Palatino Linotype", "Book Antiqua", "TeX Gyre Pagella",
+    "URW Palladio L", P052, Georgia, serif;
+  --page: 52rem;
+  --gutter: 1.5rem;
+  --date-col: 6.5rem;
+  --col-gap: 1.75rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111518;
+    --band: #171d21;
+    --text: #e2e5e8;
+    --muted: #9ba4ab;
+    --accent: #9fc3da;
+    --accent-strong: #cfe3f0;
+    --underline: rgba(159, 195, 218, 0.38);
+    --rule: #262f35;
+    --rule-strong: #3a4750;
+    --nav-bg: rgba(23, 29, 33, 0.94);
+  }
+}
+
+/* Base */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--serif);
+  font-size: 1.125rem;
+  line-height: 1.6;
+  font-kerning: normal;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+ol {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+cite {
+  font-style: italic;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: var(--underline);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+a:hover {
+  color: var(--accent-strong);
+  text-decoration-color: currentColor;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.wrap {
+  max-width: calc(var(--page) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.skip-link {
+  position: absolute;
+  top: -4rem;
+  left: var(--gutter);
+  z-index: 20;
+  padding: 0.5rem 0.9rem;
+  background: var(--bg);
+  border: 1px solid var(--rule-strong);
+}
+
+.skip-link:focus {
+  top: 0.75rem;
+}
+
+/* Navigation */
+
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--rule);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.nav-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.25rem 2rem;
+  padding-block: 0.85rem;
+}
+
+.nav-name {
+  color: var(--text);
+  font-variant-caps: small-caps;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+}
+
+.site-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem 1.6rem;
+}
+
+.site-nav ul a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.site-nav a:hover {
+  color: var(--accent);
+}
+
+/* Masthead */
+
+.masthead {
+  background: var(--band);
+  border-bottom: 1px solid var(--rule);
+}
+
+.masthead-inner {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas: "portrait identity contact";
+  align-items: end;
+  gap: 1.75rem 2rem;
+  padding-block: 3.5rem 3.25rem;
+}
+
+.portrait {
+  grid-area: portrait;
+  display: block;
+  width: 9.5rem;
+  height: auto;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+}
+
+.identity {
+  grid-area: identity;
+}
+
+.masthead h1 {
+  font-size: clamp(2.3rem, 1.7rem + 2.4vw, 3.1rem);
+  font-weight: normal;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.position {
+  margin-top: 0.9rem;
+  color: var(--muted);
+  font-size: 1.2rem;
+  line-height: 1.45;
+}
+
+.contact {
+  grid-area: contact;
+  padding-left: 1.6rem;
+  border-left: 1px solid var(--rule-strong);
+  line-height: 1.8;
+}
+
+/* Introduction */
+
+.intro {
+  max-width: 42rem;
+  padding-top: 3.25rem;
+}
+
+.intro p + p {
+  margin-top: 0.9em;
+}
+
+/* Sections */
+
+.block {
+  margin-top: 4rem;
+  scroll-margin-top: 4.5rem;
+}
+
+h2 {
+  margin-bottom: 1.4rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--rule-strong);
+  color: var(--accent);
+  font-size: 1.4rem;
+  font-weight: normal;
+  line-height: 1.3;
+  font-variant-caps: small-caps;
+  letter-spacing: 0.03em;
+}
+
+.list-heading {
+  margin: 2.25rem 0 0.35rem calc(var(--date-col) + var(--col-gap));
+  color: var(--muted);
+  font-size: 1.05rem;
+  font-style: italic;
+  font-weight: normal;
+}
+
+h2 + .list-heading {
+  margin-top: 0;
+}
+
+/* Dated entries: publications, talks, teaching, education */
+
+.entries > li {
+  display: grid;
+  grid-template-columns: var(--date-col) minmax(0, 1fr);
+  column-gap: var(--col-gap);
+  align-items: baseline;
+  padding-block: 0.5rem;
+}
+
+.when {
+  color: var(--muted);
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.split {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  column-gap: 1.5rem;
+}
+
+.split > :last-child {
+  color: var(--muted);
+}
+
+.detail {
+  margin-top: 0.1rem;
+  color: var(--muted);
+  font-size: 0.97rem;
+  line-height: 1.5;
+}
+
+.awards {
+  margin-top: 0.3rem;
+  font-style: italic;
+}
+
+.talk-title {
+  font-style: italic;
+}
+
+/* Publications */
+
+.pubs > li {
+  padding-block: 1rem;
+  border-top: 1px solid var(--rule);
+}
+
+.pubs > li:first-child {
+  padding-top: 0.4rem;
+  border-top: 0;
+}
+
+.pub-title {
+  font-size: 1.15rem;
+  line-height: 1.4;
+}
+
+.pub-authors,
+.pub-venue {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.pub-authors {
+  margin-top: 0.25rem;
+}
+
+.pub-venue {
+  color: var(--muted);
+}
+
+.pub-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.1rem 1.3rem;
+  margin-top: 0.35rem;
+  font-size: 0.94rem;
+}
+
+/* Footer */
+
+.site-footer {
+  margin-top: 5.5rem;
+  padding-block: 1.75rem 2.75rem;
+  background: var(--band);
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.4rem 2rem;
+}
+
+/* Narrower screens */
+
+@media (max-width: 52rem) {
+  .masthead-inner {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      "portrait identity"
+      "portrait contact";
+    row-gap: 1.5rem;
+  }
+
+  .portrait {
+    align-self: start;
+  }
+
+  .contact {
+    padding-left: 1.1rem;
+  }
+}
+
+@media (max-width: 34rem) {
+  .masthead-inner {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "portrait"
+      "identity"
+      "contact";
+  }
+
+  .portrait {
+    width: 7.5rem;
+  }
+}
+
+@media (max-width: 40rem) {
+  :root {
+    --gutter: 1rem;
+  }
+
+  body {
+    font-size: 1.0625rem;
+  }
+
+  .site-nav {
+    position: static;
+  }
+
+  .nav-name {
+    display: none;
+  }
+
+  .site-nav ul {
+    flex-wrap: nowrap;
+    gap: 0 1rem;
+    min-width: 0;
+    overflow-x: auto;
+    font-size: 0.97rem;
+    scrollbar-width: none;
+  }
+
+  .site-nav ul::-webkit-scrollbar {
+    display: none;
+  }
+
+  .masthead-inner {
+    padding-block: 2.75rem 2.25rem;
+  }
+
+  .intro {
+    padding-top: 2.5rem;
+  }
+
+  .block {
+    margin-top: 3.25rem;
+    scroll-margin-top: 1rem;
+  }
+
+  .list-heading {
+    margin-left: 0;
+  }
+
+  .entries > li {
+    grid-template-columns: minmax(0, 1fr);
+    padding-block: 0.6rem;
+  }
+
+  .when {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .split,
+  .split > :last-child {
+    display: block;
+  }
+}
+
+/* Print */
+
+@media print {
+  :root {
+    --bg: #ffffff;
+    --band: #ffffff;
+    --text: #000000;
+    --muted: #444444;
+    --accent: #000000;
+    --rule: #cccccc;
+    --rule-strong: #999999;
+  }
+
+  body {
+    font-size: 10.5pt;
+  }
+
+  .site-nav,
+  .skip-link {
+    display: none;
+  }
+
+  .masthead-inner {
+    padding-block: 0 1.5rem;
+  }
+
+  .block {
+    margin-top: 1.75rem;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .entries > li {
+    break-inside: avoid;
+  }
+}
